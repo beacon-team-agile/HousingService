@@ -22,7 +22,7 @@ public class Landlord {
     private String email;
     private String cellPhone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "landlord")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "landlordId")
     private List<House> houseList = new ArrayList<>();
 
     @Override

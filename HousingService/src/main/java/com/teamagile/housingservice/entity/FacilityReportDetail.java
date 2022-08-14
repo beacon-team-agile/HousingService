@@ -18,17 +18,15 @@ public class FacilityReportDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer Id;
-    private Integer facilityReportId;
+    @ManyToOne
+    @JoinColumn(name ="facility_report_id")
+    private FacilityReport facilityReportId;
+
     private Integer employeeId;
 
     @Column(name = "`comment`")
     private String comment;
     private Date createDate;
     private Date lastModificationDate;
-
-    @ManyToOne
-    @JoinColumn(name ="facility_report_id")
-    private FacilityReport facilityReport;
-
 
 }

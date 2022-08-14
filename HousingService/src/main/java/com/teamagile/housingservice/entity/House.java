@@ -18,16 +18,25 @@ public class House implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    private Integer landlordId;
+    @ManyToOne
+    @JoinColumn(name ="landlord_id")
+    private Landlord landlordId;
     private String address;
     private Integer maxOccupant;
 
-    @ManyToOne
-    @JoinColumn(name ="landlord_id")
-    private Landlord landlord;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "house")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseId")
     private List<Facility> facilityList = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "House{" +
+                "Id=" + Id +
+                ", landlordId=" + landlordId +
+                ", address='" + address + '\'' +
+                ", maxOccupant=" + maxOccupant +
+                ", landlord=" + landlordId +
+                ", facilityList=" + facilityList +
+                '}';
+    }
 }

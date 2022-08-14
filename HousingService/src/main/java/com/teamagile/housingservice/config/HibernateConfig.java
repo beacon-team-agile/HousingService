@@ -26,7 +26,7 @@ public class HibernateConfig {
     protected LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.teamagile.housingservice.domain");
+        sessionFactory.setPackagesToScan("com.teamagile.housingservice.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

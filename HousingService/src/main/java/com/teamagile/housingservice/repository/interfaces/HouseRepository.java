@@ -5,13 +5,13 @@ import com.teamagile.housingservice.entity.House;
 import java.util.List;
 
 public interface HouseRepository {
-    House addHouse(House house);
+    House createHouse(House house);
 
     House getHouseById(Integer id);
 
     List<House> getAllHouses();
 
-    House updateHouseInfo(Integer id);
+    House updateHouseInfoById(Integer id);
 
     void deleteHouse(Integer id);
 }

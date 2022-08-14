@@ -16,7 +16,9 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    private Integer houseId;
+    @ManyToOne
+    @JoinColumn(name ="house_id")
+    private House houseId;
 
     @Column(name = "`type`")
     private String type;
@@ -25,11 +27,7 @@ public class Facility {
     private String description;
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name ="house_id")
-    private House house;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facility")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facilityId")
     private List<FacilityReport> facilityReportList = new ArrayList<>();
 
     @Override
@@ -40,7 +38,7 @@ public class Facility {
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", quantity=" + quantity +
-                ", house=" + house +
+                ", house=" + houseId +
                 ", facilityReportList=" + facilityReportList +
                 '}';
     }

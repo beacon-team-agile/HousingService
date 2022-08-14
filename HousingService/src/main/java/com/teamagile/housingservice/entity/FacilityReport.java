@@ -20,7 +20,9 @@ public class FacilityReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer Id;
-    private Integer facilityId;
+    @ManyToOne
+    @JoinColumn(name ="facility_id")
+    private Facility facilityId;
     private Integer employeeId;
     private String title;
 
@@ -31,11 +33,8 @@ public class FacilityReport {
     @Column(name = "`status`")
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name ="facility_id")
-    private Facility facility;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facilityReport")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facilityReportId")
     private List<FacilityReportDetail> facilityReportDetailList = new ArrayList<>();
 
     @Override
@@ -48,7 +47,7 @@ public class FacilityReport {
                 ", description='" + description + '\'' +
                 ", createDate=" + createDate +
                 ", status='" + status + '\'' +
-                ", facility=" + facility +
+                ", facility=" + facilityId +
                 ", facilityReportDetailList=" + facilityReportDetailList +
                 '}';
     }

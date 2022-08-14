@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class AllHouseResponse {
+public class AllHousesResponse {
     private ResponseStatus responseStatus;
     private List<House> houses;
 }

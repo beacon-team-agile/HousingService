@@ -23,7 +23,7 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
     }
 
     public T add(final T t) {
-        getCurrentSession().persist(t);
+        getCurrentSession().save(t);
         return t;
     }
 
