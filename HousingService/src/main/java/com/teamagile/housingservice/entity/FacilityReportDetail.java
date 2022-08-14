@@ -1,8 +1,12 @@
 package com.teamagile.housingservice.entity;
+
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="FacilityReportDetail")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -10,10 +14,21 @@ import java.util.Date;
 @Builder
 @ToString
 public class FacilityReportDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer Id;
     private Integer facilityReportId;
     private Integer employeeId;
+
+    @Column(name = "`comment`")
     private String comment;
     private Date createDate;
     private Date lastModificationDate;
+
+    @ManyToOne
+    @JoinColumn(name ="facility_report_id")
+    private FacilityReport facilityReport;
+
+
 }
