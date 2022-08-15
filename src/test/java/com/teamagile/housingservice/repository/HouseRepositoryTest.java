@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 @ActiveProfiles(value = "test")
 @SpringBootTest
@@ -83,7 +84,9 @@ public class HouseRepositoryTest {
 //    UPDATE BY ID
     @Test
     @Transactional
-    public void testUpdateHouseById_successful() {}
+    public void testUpdateHouseById_successful() {
+
+    }
 
     @Test
     @Transactional
@@ -92,9 +95,12 @@ public class HouseRepositoryTest {
 //    DELETE BY ID
     @Test
     @Transactional
-    public void testDeleteHouseById_successful() {}
+    public void testDeleteHouseById_successful() {
+        House newHouse = houseRepoImp.createHouse(mockHouse);
+        List<House> houseList = new ArrayList<>();
+        houseList.add(newHouse);
+        houseRepoImp.deleteHouse(newHouse.getId());
+        verify(houseList).size();
+    }
 
-    @Test
-    @Transactional
-    public void testDeleteHouseById_unsuccessful() {}
 }

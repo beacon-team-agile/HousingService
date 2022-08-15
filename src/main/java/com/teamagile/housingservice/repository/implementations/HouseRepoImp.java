@@ -32,6 +32,6 @@ public class HouseRepoImp extends AbstractHibernateDAO<House> implements HouseRe
 
     @Override
     public void deleteHouse(Integer id) {
-
+        delete(House.builder().Id(id).build());
     }
 }
