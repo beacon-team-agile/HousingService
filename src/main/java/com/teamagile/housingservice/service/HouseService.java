@@ -19,8 +19,8 @@ public class HouseService {
     }
 
     @Transactional
-    public House createHouse(House house){
-        return null;
+    public Integer createHouse(House house){
+        return houseRepoImp.createHouse(house);
     }
 
     @Transactional

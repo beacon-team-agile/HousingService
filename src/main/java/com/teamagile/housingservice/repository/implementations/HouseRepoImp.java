@@ -11,7 +11,7 @@ import java.util.List;
 public class HouseRepoImp extends AbstractHibernateDAO<House> implements HouseRepository {
 
     @Override
-    public House createHouse(House house) {
+    public Integer createHouse(House house) {
         return add(house);
     }
 

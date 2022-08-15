@@ -1,6 +1,5 @@
 package com.teamagile.housingservice.repository;
 
-import com.google.common.base.Preconditions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,8 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
         return getCurrentSession().get(clazz, id);
     }
 
-    public T add(final T t) {
-        getCurrentSession().save(t);
-        return t;
+    public Integer add(final T t) {
+        return (Integer) getCurrentSession().save(t);
     }
 
     public List<T> findAll() {return getCurrentSession().createQuery("from " + clazz.getName()).list();}

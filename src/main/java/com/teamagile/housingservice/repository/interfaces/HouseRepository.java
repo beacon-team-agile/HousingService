@@ -5,7 +5,7 @@ import com.teamagile.housingservice.entity.House;
 import java.util.List;
 
 public interface HouseRepository {
-    House createHouse(House house);
+    Integer createHouse(House house);
 
     House getHouseById(Integer id);
 

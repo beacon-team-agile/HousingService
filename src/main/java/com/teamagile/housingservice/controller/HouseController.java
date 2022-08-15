@@ -1,12 +1,15 @@
 package com.teamagile.housingservice.controller;
 
-import com.teamagile.housingservice.domain.request.HouseCreateRequest;
+import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
+import com.teamagile.housingservice.entity.House;
 import com.teamagile.housingservice.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("housing-service")
@@ -26,8 +29,19 @@ public class HouseController {
     }
 
     @PostMapping
-    public HouseResponse createHouse(@RequestBody HouseCreateRequest request) {
-        return null;
+    public HouseResponse createHouse(@RequestBody House request) {
+        House house = House.builder()
+                .landlordId(request.getLandlordId())
+                .address(request.getAddress())
+                .maxOccupant(request.getMaxOccupant())
+                .build();
+
+        houseService.createHouse(house);
+
+        return HouseResponse.builder()
+                .responseStatus(ResponseStatus.builder().success(true).message("House Created!").build())
+                .house(house)
+                .build();
     }
 
     @GetMapping("/{houseId}")

@@ -15,6 +15,7 @@ import java.util.List;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer Id;
     @ManyToOne
     @JoinColumn(name ="house_id")

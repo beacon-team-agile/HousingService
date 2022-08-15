@@ -16,10 +16,12 @@ public class Landlord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer Id;
     private String firstName;
     private String lastName;
     private String email;
+    @Column(name = "cell_phone")
     private String cellPhone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "landlordId")

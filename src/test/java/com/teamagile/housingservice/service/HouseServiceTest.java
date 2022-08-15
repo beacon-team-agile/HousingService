@@ -1,6 +1,7 @@
 package com.teamagile.housingservice.service;
 
 import com.teamagile.housingservice.entity.*;
+import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.repository.implementations.HouseRepoImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {
@@ -32,44 +37,50 @@ public class HouseServiceTest {
             .cellPhone("123456789").build();
         mockHouse = House.builder().Id(100).landlordId(mockLandlord).address("123 Here St").maxOccupant(4).build();
         mockFacility = Facility.builder().Id(100).houseId(mockHouse).type("Bed").description("King size bed").quantity(4).build();
-        mockFR = FacilityReport.builder().Id(100).facilityId(mockFacility).employeeId(100).title("test")
+        mockFR = FacilityReport.builder().Id(100).facilityId(mockFacility).employeeId("test").title("test")
                 .description("test").createDate(Date.valueOf("2000-01-01")).status("open").build();
-        mockFRD = FacilityReportDetail.builder().Id(100).facilityReportId(mockFR).employeeId(100)
+        mockFRD = FacilityReportDetail.builder().Id(100).facilityReportId(mockFR).employeeId("test")
                 .comment("test").createDate(Date.valueOf("2000-01-01")).lastModificationDate(Date.valueOf("2000-01-01")).build();
     }
 
 //    CREATE
     @Test
-    public void createHouse_successful() {}
+    public void testCreateHouse_successful() {
+
+    }
 
     @Test
-    public void createHouse_unsuccessfulWhenAddressIsEmpty() {}
+    public void testCreateHouse_unsuccessfulWhenAddressIsEmpty() {}
 
     @Test
-    public void createHouse_unsuccessfulWhenAddressExisted() {}
+    public void testCreateHouse_unsuccessfulWhenAddressExisted() {}
 
 //    GET HOUSE BY ID
     @Test
-    public void getHouseById_successful() {}
+    public void testGetHouseById_successful() {
+        when(houseRepoImp.getHouseById(100)).thenReturn(mockHouse);
+        House house = houseService.getHouseById(100);
+        assertEquals(mockHouse, house);
+    }
 
     @Test
-    public void getHouseById_unsuccessfulWhenNegativeId() {}
-
-    @Test
-    public void getHouseById_unsuccessfulWhenStringId() {}
+    public void testGetHouseById_unsuccessfulWhenNegativeId() {
+        when(houseRepoImp.getHouseById(-100)).thenReturn(null);
+        assertThrows(HouseNotFoundException.class, () -> houseService.getHouseById(-100));
+    }
 
 //    GET ALL HOUSES
     @Test
-    public void getAllHouses_successful() {}
+    public void testGetAllHouses_successful() {}
 
 //    UPDATE HOUSE
     @Test
-    public void updateHouse_successful() {}
+    public void testUpdateHouse_successful() {}
 
     @Test
-    public void updateHouse_unsuccessfulWhenAddressIsEmpty() {}
+    public void testUpdateHouse_unsuccessfulWhenAddressIsEmpty() {}
 
 //    DELETE HOUSE
     @Test
-    public void deleteHouse_successful() {}
+    public void testDeleteHouse_successful() {}
 }

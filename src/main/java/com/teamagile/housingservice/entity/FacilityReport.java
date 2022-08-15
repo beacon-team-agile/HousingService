@@ -23,16 +23,17 @@ public class FacilityReport {
     @ManyToOne
     @JoinColumn(name ="facility_id")
     private Facility facilityId;
-    private Integer employeeId;
+    @Column(name = "employee_id")
+    private String employeeId;
     private String title;
 
     @Column(name = "`description`")
     private String description;
+    @Column(name = "create_date")
     private Date createDate;
 
     @Column(name = "`status`")
     private String status;
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "facilityReportId")
     private List<FacilityReportDetail> facilityReportDetailList = new ArrayList<>();
@@ -42,12 +43,11 @@ public class FacilityReport {
         return "FacilityReport{" +
                 "Id=" + Id +
                 ", facilityId=" + facilityId +
-                ", employeeId=" + employeeId +
+                ", employeeId='" + employeeId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createDate=" + createDate +
                 ", status='" + status + '\'' +
-                ", facility=" + facilityId +
                 ", facilityReportDetailList=" + facilityReportDetailList +
                 '}';
     }

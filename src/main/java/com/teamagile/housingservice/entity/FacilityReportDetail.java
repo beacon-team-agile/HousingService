@@ -22,11 +22,14 @@ public class FacilityReportDetail {
     @JoinColumn(name ="facility_report_id")
     private FacilityReport facilityReportId;
 
-    private Integer employeeId;
+    @Column(name = "employee_id")
+    private String employeeId;
 
     @Column(name = "`comment`")
     private String comment;
+    @Column(name="create_date")
     private Date createDate;
+    @Column(name = "last_modification_date")
     private Date lastModificationDate;
 
 }

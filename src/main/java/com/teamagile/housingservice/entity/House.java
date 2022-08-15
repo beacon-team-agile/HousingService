@@ -16,14 +16,15 @@ import java.util.List;
 @Builder
 public class House implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
     private Integer Id;
     @ManyToOne
     @JoinColumn(name ="landlord_id")
     private Landlord landlordId;
     private String address;
+    @Column(name = "max_occupant")
     private Integer maxOccupant;
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseId")
     private List<Facility> facilityList = new ArrayList<>();
@@ -35,7 +36,6 @@ public class House implements Serializable {
                 ", landlordId=" + landlordId +
                 ", address='" + address + '\'' +
                 ", maxOccupant=" + maxOccupant +
-                ", landlord=" + landlordId +
                 ", facilityList=" + facilityList +
                 '}';
     }
