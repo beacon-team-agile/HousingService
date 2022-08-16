@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public class HouseRepoImp extends AbstractHibernateDAO<House> implements HouseRepository {
-
+    public HouseRepoImp() {
+        setClazz(House.class);
+    }
     @Override
     public Integer createHouse(House house) {
         return add(house);

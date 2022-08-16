@@ -1,5 +1,7 @@
 package com.teamagile.housingservice.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +27,7 @@ public class House implements Serializable {
     private String address;
     @Column(name = "max_occupant")
     private Integer maxOccupant;
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseId")
     private List<Facility> facilityList = new ArrayList<>();
 

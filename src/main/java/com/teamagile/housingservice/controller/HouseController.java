@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("housing-service")
+@RequestMapping("housing")
 public class HouseController {
     private HouseService houseService;
     private RestTemplate restTemplate;
@@ -46,7 +47,23 @@ public class HouseController {
 
     @GetMapping("/{houseId}")
     public HouseResponse getHouseById(@PathVariable Integer houseId) {
-        return null;
+        Optional<House> houseOptional = Optional.ofNullable(houseService.getHouseById(houseId));
+        if (!houseOptional.isPresent()) {
+            return HouseResponse.builder()
+                    .responseStatus(ResponseStatus.builder()
+                            .success(false)
+                            .message("House Not Found!")
+                            .build())
+                    .house(null)
+                    .build();
+        }
+        return HouseResponse.builder()
+                .responseStatus(ResponseStatus.builder()
+                        .success(false)
+                        .message("House Found Successfully!")
+                        .build())
+                .house(houseOptional.get())
+                .build();
     }
 
     @GetMapping("all")

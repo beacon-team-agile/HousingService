@@ -24,7 +24,7 @@ public class Landlord {
     @Column(name = "cell_phone")
     private String cellPhone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "landlordId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "landlordId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<House> houseList = new ArrayList<>();
 
     @Override

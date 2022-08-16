@@ -18,7 +18,7 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
     }
 
     public T findById(final Integer id) {
-        return getCurrentSession().get(clazz, id);
+        return (T) getCurrentSession().get(clazz, id);
     }
 
     public Integer add(final T t) {

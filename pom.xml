@@ -132,6 +132,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/domain/**</exclude>
+                        <exclude>**/entity/**</exclude>
                         <exclude>**/config/**</exclude>
                     </excludes>
                 </configuration>
