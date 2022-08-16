@@ -40,10 +40,5 @@ public class HouseControllerTest {
                 .comment("test").createDate(Date.valueOf("2000-01-01")).lastModificationDate(Date.valueOf("2000-01-01")).build();
     }
 
-    @Test
-    public void testCreateHouse_successful() {}
-
-    @Test
-    public void testCreateHouse_unsuccessful() {}
 
 }
