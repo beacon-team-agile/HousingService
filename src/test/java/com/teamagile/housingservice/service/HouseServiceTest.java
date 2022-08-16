@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {
@@ -79,6 +79,8 @@ public class HouseServiceTest {
 
 //    DELETE HOUSE
     @Test
-    public void testDeleteHouse_successful() throws Exception {
+    public void testDeleteHouse_successful() {
+        houseService.deleteHouse(1);
+        verify(houseRepoImp).deleteHouse(1);
     }
 }

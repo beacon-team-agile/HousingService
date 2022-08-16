@@ -3,15 +3,12 @@ package com.teamagile.housingservice.controller;
 import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
-import com.teamagile.housingservice.entity.Facility;
 import com.teamagile.housingservice.entity.House;
-import com.teamagile.housingservice.entity.Landlord;
 import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.service.HouseService;
 import com.teamagile.housingservice.service.LandlordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,23 +28,13 @@ public class HouseController {
     public void LandlordService(LandlordService landlordService){
         this.landlordService = landlordService;
     }
-    @Autowired
-    public void setRestTemplate(HouseService houseService, LandlordService landlordService) {
 
-        this.houseService = houseService;
-        this.landlordService = landlordService;
-    }
 
     @PostMapping("/{landlordId}")
     public HouseResponse createHouse(@RequestBody House request, @PathVariable Integer landlordId) throws HouseNotFoundException {
 
         House house = House.builder()
-                .landlordId(Landlord.builder()
-                        .firstName(request.getLandlordId().getFirstName())
-                        .lastName(request.getLandlordId().getLastName())
-                        .email(request.getLandlordId().getEmail())
-                        .cellPhone(request.getLandlordId().getCellPhone())
-                        .build())
+                .landlordId(landlordService.getLandlordById(landlordId))
                 .address(request.getAddress())
                 .maxOccupant(request.getMaxOccupant())
                 .build();

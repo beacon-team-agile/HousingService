@@ -1,4 +1,5 @@
 package com.teamagile.housingservice.entity;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -45,5 +46,18 @@ public class Landlord implements Serializable {
                 ", cellPhone='" + cellPhone + '\'' +
                 ", houseList=" + houseList +
                 '}';
+    }
+
+    @JsonCreator
+    public Landlord(@JsonProperty("landlordId") Integer Id,
+                    @JsonProperty("firstName") String firstName,
+                    @JsonProperty("lastName") String lastName,
+                    @JsonProperty("email") String email,
+                    @JsonProperty("cellPhone") String cellPhone){
+        this.Id = Id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.cellPhone = cellPhone;
     }
 }
