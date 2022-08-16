@@ -1,6 +1,7 @@
 package com.teamagile.housingservice.service;
 
 import com.teamagile.housingservice.entity.House;
+import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.repository.implementations.HouseRepoImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,18 @@ public class HouseService {
     }
 
     @Transactional
-    public House getHouseById(int id) {
-        return null;
+    public House getHouseById(int id) throws HouseNotFoundException {
+        return Optional.ofNullable(houseRepoImp.getHouseById(id))
+                .orElseThrow(() -> new HouseNotFoundException("House Not Found!"));
     }
 
     @Transactional
     public List<House> getAllHouses() {
-        return null;
+        return houseRepoImp.getAllHouses();
     }
 
     @Transactional
     public void deleteHouse(Integer id) {
-
+        houseRepoImp.deleteHouse(id);
     }
 }

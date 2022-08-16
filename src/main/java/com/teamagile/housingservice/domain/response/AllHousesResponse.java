@@ -12,5 +12,5 @@ import java.util.List;
 @Builder
 public class AllHousesResponse {
     private ResponseStatus responseStatus;
-    private List<House> houses;
+    private List<House> houseList;
 }
