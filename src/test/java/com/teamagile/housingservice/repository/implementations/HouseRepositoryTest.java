@@ -77,9 +77,7 @@ public class HouseRepositoryTest {
     public void testGetAllHouses_found() {
         List<Integer> houseList = new ArrayList<>();
         Integer id1 = houseRepoImp.createHouse(mockHouse);
-        Integer id2 = houseRepoImp.createHouse(mockHouse);
         houseList.add(id1);
-        houseList.add(id2);
         assertEquals(houseList.size(), houseRepoImp.findAll().size());
     }
 
