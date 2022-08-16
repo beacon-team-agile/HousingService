@@ -1,24 +1,20 @@
 package com.teamagile.housingservice.controller;
 
 import com.google.gson.Gson;
-import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
 import com.teamagile.housingservice.entity.*;
-import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.service.HouseService;
 import com.teamagile.housingservice.service.LandlordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,6 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(HouseController.class)
@@ -69,10 +66,23 @@ public class HouseControllerTest {
 
     }
 
+    @Test
+    public void testCreateHouse_success() throws Exception{
+        when(houseService.createHouse(mockHouse)).thenReturn(1);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/housing/{landlordId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new Gson().toJson(request()))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        HouseResponse houseResponse = new Gson().fromJson(result.getResponse().getContentAsString(), HouseResponse.class);
+
+        assertTrue(houseResponse.getResponseStatus().getSuccess());
+    }
 
     @Test
     public void testGetHouse_success() throws Exception {
-
         when(houseService.getHouseById(1)).thenReturn(mockHouse);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/housing/{houseId}", "1")
                         .accept(MediaType.APPLICATION_JSON))
@@ -93,17 +103,18 @@ public class HouseControllerTest {
         assertEquals(house.getResponseStatus().getSuccess(), false);
     }
 
-//    @Test
-//    public void testGetAllHouses_successful() throws Exception {
-//        List<House> houseList = new ArrayList();
-//        houseList.add(mockHouse);
-//        when(houseService.getAllHouses()).thenReturn(houseList);
-//        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/housing/all")
-//                        .accept(MediaType.APPLICATION_JSON))
-//                        .andExpect(status().isOk())
-//                        .andReturn();
-//
-//        AllHousesResponse response = new Gson().fromJson(result.getResponse().getContentAsString(), AllHousesResponse.class);
-//        assertEquals(houseList, response.getHouseList());
-//    }
+    @Test
+    public void testGetAllHouses_successful() throws Exception {
+        List<House> houseList = new ArrayList();
+        houseList.add(mockHouse);
+        when(houseService.getAllHouses()).thenReturn(houseList);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/housing/all")
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        AllHousesResponse response = new Gson().fromJson(result.getResponse().getContentAsString(), AllHousesResponse.class);
+        assertEquals(response.getResponseStatus().getSuccess(), true);
+    }
+
 }
