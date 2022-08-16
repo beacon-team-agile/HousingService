@@ -4,10 +4,11 @@ import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
 import com.teamagile.housingservice.entity.House;
+import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.service.HouseService;
+import com.teamagile.housingservice.service.LandlordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,23 +17,24 @@ import java.util.Optional;
 @RequestMapping("housing")
 public class HouseController {
     private HouseService houseService;
-    private RestTemplate restTemplate;
+
+    private LandlordService landlordService;
 
     @Autowired
     public void HouseService(HouseService houseService){
         this.houseService = houseService;
     }
-
     @Autowired
-    public void setRestTemplate(HouseService houseService, RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-        this.houseService = houseService;
+    public void LandlordService(LandlordService landlordService){
+        this.landlordService = landlordService;
     }
 
-    @PostMapping
-    public HouseResponse createHouse(@RequestBody House request) {
+
+    @PostMapping("/{landlordId}")
+    public HouseResponse createHouse(@RequestBody House request, @PathVariable Integer landlordId) throws HouseNotFoundException {
+
         House house = House.builder()
-                .landlordId(request.getLandlordId())
+                .landlordId(landlordService.getLandlordById(landlordId))
                 .address(request.getAddress())
                 .maxOccupant(request.getMaxOccupant())
                 .build();
@@ -46,7 +48,7 @@ public class HouseController {
     }
 
     @GetMapping("/{houseId}")
-    public HouseResponse getHouseById(@PathVariable Integer houseId) {
+    public HouseResponse getHouseById(@PathVariable Integer houseId) throws HouseNotFoundException {
         Optional<House> houseOptional = Optional.ofNullable(houseService.getHouseById(houseId));
         if (!houseOptional.isPresent()) {
             return HouseResponse.builder()
@@ -59,7 +61,7 @@ public class HouseController {
         }
         return HouseResponse.builder()
                 .responseStatus(ResponseStatus.builder()
-                        .success(false)
+                        .success(true)
                         .message("House Found Successfully!")
                         .build())
                 .house(houseOptional.get())
@@ -68,9 +70,34 @@ public class HouseController {
 
     @GetMapping("all")
     public AllHousesResponse getAllHouses() {
-        return null;
+        List<House> houseList = houseService.getAllHouses();
+        return AllHousesResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .success(true)
+                                .message("Getting All Houses!")
+                                .build()
+                )
+                .houseList(houseList)
+                .build();
     }
 
     @DeleteMapping("/{houseId}")
-    public void deleteHouse(@PathVariable Integer houseId) {}
+    public HouseResponse deleteHouse(@PathVariable Integer houseId) throws HouseNotFoundException {
+        House house = houseService.getHouseById(houseId);
+        if (house.getId().equals(houseId)) {
+            houseService.deleteHouse(houseId);
+            return HouseResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .success(true)
+                                    .message("House Deleted!")
+                                    .build()
+                    )
+                    .house(house)
+                    .build();
+        } else {
+            throw new HouseNotFoundException("House Not Found!");
+        }
+    }
 }

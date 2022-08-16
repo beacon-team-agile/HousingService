@@ -1,4 +1,5 @@
 package com.teamagile.housingservice.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Facility {
     @Column(name = "`description`")
     private String description;
     private Integer quantity;
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityId")
     private List<FacilityReport> facilityReportList = new ArrayList<>();
 

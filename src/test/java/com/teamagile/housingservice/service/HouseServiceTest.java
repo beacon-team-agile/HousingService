@@ -11,10 +11,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {
@@ -33,54 +34,53 @@ public class HouseServiceTest {
 
     @BeforeEach
     public void setup() {
-        mockLandlord = Landlord.builder().Id(100).firstName("test").lastName("test").email("test@email.com")
-            .cellPhone("123456789").build();
-        mockHouse = House.builder().Id(100).landlordId(mockLandlord).address("123 Here St").maxOccupant(4).build();
-        mockFacility = Facility.builder().Id(100).houseId(mockHouse).type("Bed").description("King size bed").quantity(4).build();
-        mockFR = FacilityReport.builder().Id(100).facilityId(mockFacility).employeeId("test").title("test")
+        mockLandlord = Landlord.builder().firstName("test").lastName("test").email("test@email.com")
+                .cellPhone("123456789").build();
+        mockHouse = House.builder().landlordId(mockLandlord).address("123 Here St").maxOccupant(4).build();
+        mockFacility = Facility.builder().houseId(mockHouse).type("Bed").description("King size bed").quantity(4).build();
+        mockFR = FacilityReport.builder().facilityId(mockFacility).employeeId("test").title("test")
                 .description("test").createDate(Date.valueOf("2000-01-01")).status("open").build();
-        mockFRD = FacilityReportDetail.builder().Id(100).facilityReportId(mockFR).employeeId("test")
+        mockFRD = FacilityReportDetail.builder().facilityReportId(mockFR).employeeId("test")
                 .comment("test").createDate(Date.valueOf("2000-01-01")).lastModificationDate(Date.valueOf("2000-01-01")).build();
     }
 
 //    CREATE
     @Test
     public void testCreateHouse_successful() {
-
+        when(houseRepoImp.createHouse(mockHouse)).thenReturn(1);
+        assertEquals(1, houseService.createHouse(mockHouse));
     }
 
-    @Test
-    public void testCreateHouse_unsuccessfulWhenAddressIsEmpty() {}
-
-    @Test
-    public void testCreateHouse_unsuccessfulWhenAddressExisted() {}
 
 //    GET HOUSE BY ID
     @Test
-    public void testGetHouseById_successful() {
-//        when(houseRepoImp.getHouseById(100)).thenReturn(mockHouse);
-//        House house = houseService.getHouseById(100);
-//        assertEquals(mockHouse, house);
+    public void testGetHouseById_successful() throws Exception {
+        when(houseRepoImp.getHouseById(1)).thenReturn(mockHouse);
+        House house = houseService.getHouseById(1);
+        assertEquals(mockHouse, house);
     }
 
     @Test
     public void testGetHouseById_unsuccessfulWhenNegativeId() {
-//        when(houseRepoImp.getHouseById(-100)).thenReturn(null);
-//        assertThrows(HouseNotFoundException.class, () -> houseService.getHouseById(-100));
+        when(houseRepoImp.getHouseById(-1)).thenReturn(null);
+        assertThrows(HouseNotFoundException.class, () -> houseService.getHouseById(-1));
     }
 
 //    GET ALL HOUSES
     @Test
-    public void testGetAllHouses_successful() {}
+    public void testGetAllHouses_successful() {
+        List<House> houseList = new ArrayList();
+        houseList.add(mockHouse);
+        when(houseRepoImp.getAllHouses()).thenReturn(houseList);
+        List<House> expected = houseService.getAllHouses();
+        assertEquals(expected, houseList);
+    }
 
-//    UPDATE HOUSE
-    @Test
-    public void testUpdateHouse_successful() {}
-
-    @Test
-    public void testUpdateHouse_unsuccessfulWhenAddressIsEmpty() {}
 
 //    DELETE HOUSE
     @Test
-    public void testDeleteHouse_successful() {}
+    public void testDeleteHouse_successful() {
+        houseService.deleteHouse(1);
+        verify(houseRepoImp).deleteHouse(1);
+    }
 }

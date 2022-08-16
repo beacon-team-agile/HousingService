@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "5cb6b537-247b-4d68-8227-dfa4989e144c",
+		"name": "Housing Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create House",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"landlordId\": {\r\n        \"Id\": 2,\r\n        \"firstName\": \"\",\r\n        \"lastName\": \"\",\r\n        \"email\": \"\",\r\n        \"cellPhone\": \"\" \r\n    },\r\n    \"address\":  \"123 St\",\r\n    \"maxOccupant\": 4 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/housing/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"housing",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get House By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8082/housing/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"housing",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Houses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8082/housing/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"housing",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete House By ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8082/housing/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"housing",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
