@@ -18,17 +18,17 @@ import java.util.List;
 @Builder
 public class House implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer Id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="landlord_id")
     private Landlord landlordId;
     private String address;
     @Column(name = "max_occupant")
     private Integer maxOccupant;
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "houseId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "houseId")
     private List<Facility> facilityList = new ArrayList<>();
 
     @Override

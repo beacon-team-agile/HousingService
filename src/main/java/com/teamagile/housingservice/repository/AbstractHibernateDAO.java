@@ -27,8 +27,10 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
 
     public List<T> findAll() {return getCurrentSession().createQuery("from " + clazz.getName()).list();}
 
-
-    public void delete(T t) {getCurrentSession().delete(t);}
+    public void delete(final Integer id) {
+        final T t = findById(id);
+        getCurrentSession().delete(t);
+    }
 
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();

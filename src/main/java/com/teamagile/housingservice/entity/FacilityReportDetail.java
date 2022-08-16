@@ -18,7 +18,7 @@ public class FacilityReportDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer Id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="facility_report_id")
     private FacilityReport facilityReportId;
 

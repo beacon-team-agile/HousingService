@@ -20,7 +20,7 @@ public class FacilityReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer Id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="facility_id")
     private Facility facilityId;
     @Column(name = "employee_id")
@@ -35,7 +35,7 @@ public class FacilityReport {
     @Column(name = "`status`")
     private String status;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "facilityReportId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityReportId")
     private List<FacilityReportDetail> facilityReportDetailList = new ArrayList<>();
 
     @Override

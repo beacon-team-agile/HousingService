@@ -28,12 +28,7 @@ public class HouseRepoImp extends AbstractHibernateDAO<House> implements HouseRe
     }
 
     @Override
-    public House updateHouseInfoById(Integer id) {
-        return null;
-    }
-
-    @Override
     public void deleteHouse(Integer id) {
-        delete(House.builder().Id(id).build());
+        delete(id);
     }
 }

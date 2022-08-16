@@ -11,7 +11,5 @@ public interface HouseRepository {
 
     List<House> getAllHouses();
 
-    House updateHouseInfoById(Integer id);
-
     void deleteHouse(Integer id);
 }

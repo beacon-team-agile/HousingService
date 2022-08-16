@@ -34,11 +34,6 @@ public class HouseService {
     }
 
     @Transactional
-    public void updateHouseInfoById(Integer id) {
-
-    }
-
-    @Transactional
     public void deleteHouse(Integer id) {
 
     }

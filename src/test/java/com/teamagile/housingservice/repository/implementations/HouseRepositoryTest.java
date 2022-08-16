@@ -33,7 +33,7 @@ public class HouseRepositoryTest {
     public void setup() {
         mockLandlord = Landlord.builder().firstName("test").lastName("test").email("test@email.com")
                 .cellPhone("123456789").build();
-        mockHouse = House.builder().landlordId(mockLandlord).address("123 Here St").maxOccupant(4).build();
+        mockHouse = House.builder().Id(100).landlordId(mockLandlord).address("123 Here St").maxOccupant(4).build();
         mockFacility = Facility.builder().houseId(mockHouse).type("Bed").description("King size bed").quantity(4).build();
         mockFR = FacilityReport.builder().facilityId(mockFacility).employeeId("test").title("test")
                 .description("test").createDate(Date.valueOf("2000-01-01")).status("open").build();
@@ -83,24 +83,13 @@ public class HouseRepositoryTest {
         assertEquals(houseList.size(), houseRepoImp.findAll().size());
     }
 
-//    UPDATE BY ID
-    @Test
-    @Transactional
-    public void testUpdateHouseById_successful() {
-
-    }
-
-    @Test
-    @Transactional
-    public void testUpdateHouseById_unsuccessful() {}
-
 //    DELETE BY ID
     @Test
     @Transactional
     public void testDeleteHouseById_successful() {
         Integer id = houseRepoImp.createHouse(mockHouse);
         houseRepoImp.deleteHouse(id);
-//        assertEquals(, houseRepoImp.getHouseById(id));
+        assertNull(houseRepoImp.getHouseById(id));
     }
 
 }

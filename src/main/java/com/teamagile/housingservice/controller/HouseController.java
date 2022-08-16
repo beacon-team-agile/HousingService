@@ -71,9 +71,6 @@ public class HouseController {
         return null;
     }
 
-    @PatchMapping("/{houseId}")
-    public void updateHouseInfo(@PathVariable Integer houseId) {}
-
     @DeleteMapping("/{houseId}")
     public void deleteHouse(@PathVariable Integer houseId) {}
 }
