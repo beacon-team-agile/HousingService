@@ -29,7 +29,6 @@ public class FacilityReport implements Serializable {
     private Facility facilityId;
     @Column(name = "employee_id")
     private String employeeId;
-    
 
     @Column(name = "title")
     private String title;

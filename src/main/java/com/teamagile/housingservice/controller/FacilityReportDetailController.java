@@ -1,6 +1,7 @@
 package com.teamagile.housingservice.controller;
 
 import com.teamagile.housingservice.domain.common.ResponseStatus;
+import com.teamagile.housingservice.domain.requests.FacilityReportDetailRequest;
 import com.teamagile.housingservice.domain.response.AllFacilityReportDetailsResponse;
 import com.teamagile.housingservice.domain.response.FacilityReportDetailResponse;
 import com.teamagile.housingservice.entity.FacilityReportDetail;
@@ -11,6 +12,7 @@ import com.teamagile.housingservice.service.FacilityReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,16 +32,15 @@ public class FacilityReportDetailController {
         this.facilityReportDetailService = facilityReportDetailService;
     }
 
-    @PostMapping("/{facilityReportId}")
-    public FacilityReportDetailResponse addFacilityReportDetail(@RequestBody FacilityReportDetail request
-            , @PathVariable Integer facilityReportId) throws FacilityReportNotFoundException {
-
+    @PostMapping("/add")
+    public FacilityReportDetailResponse addFacilityReportDetail(@RequestBody FacilityReportDetailRequest request)
+            throws FacilityReportNotFoundException {
         FacilityReportDetail facilityReportDetail = FacilityReportDetail.builder()
-                .facilityReportId(facilityReportService.getFacilityReportById(facilityReportId))
+                .facilityReportId(facilityReportService.getFacilityReportById(request.getFacilityReportId()))
                 .employeeId(request.getEmployeeId())
                 .comment(request.getComment())
-                .createDate(request.getCreateDate())
-                .lastModificationDate(request.getLastModificationDate())
+                .createDate(Calendar.getInstance().getTime())
+                .lastModificationDate(Calendar.getInstance().getTime())
                 .build();
 
         facilityReportDetailService.addFacilityReportDetail(facilityReportDetail);
@@ -88,9 +89,9 @@ public class FacilityReportDetailController {
 
     @PatchMapping("/{facilityReportDetailId}")
     public FacilityReportDetailResponse updateFacilityReportDetail(@PathVariable Integer facilityReportDetailId
-            , @RequestBody FacilityReportDetail facilityReportDetail) {
+            , @RequestBody FacilityReportDetail request) {
         FacilityReportDetail updated_facilityReportDetail = facilityReportDetailService
-                .updateFacilityReportDetailInfo(facilityReportDetailId, facilityReportDetail);
+                .updateFacilityReportDetailInfo(facilityReportDetailId, request);
 
         return FacilityReportDetailResponse.builder()
                 .responseStatus(
