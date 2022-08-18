@@ -94,4 +94,18 @@ public class FacilityReportController {
                 .facilityReportList(facilityReportList)
                 .build();
     }
+
+    @GetMapping("/facility/{facilityId}")
+    public AllFacilityReportsResponse getFacilityReportsByFacilityId(@PathVariable Integer facilityId) {
+        List<FacilityReport> facilityReportList = facilityReportService.getFacilityReportsByFacilityId(facilityId);
+        return AllFacilityReportsResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .success(true)
+                                .message("Getting Facility Reports From Facility!")
+                                .build()
+                )
+                .facilityReportList(facilityReportList)
+                .build();
+    }
 }

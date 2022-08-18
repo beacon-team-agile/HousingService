@@ -40,7 +40,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:9000/housing-service/housing/6",
+					"raw": "localhost:9000/housing-service/housing/5",
 					"host": [
 						"localhost"
 					],
@@ -48,7 +48,7 @@
 					"path": [
 						"housing-service",
 						"housing",
-						"6"
+						"5"
 					]
 				}
 			},
@@ -141,15 +141,15 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:9000/housing-service/facility-report/1",
+					"raw": "localhost:9000/housing-service/facility-report-detail/all",
 					"host": [
 						"localhost"
 					],
 					"port": "9000",
 					"path": [
 						"housing-service",
-						"facility-report",
-						"1"
+						"facility-report-detail",
+						"all"
 					]
 				}
 			},
@@ -182,6 +182,39 @@
 						"housing-service",
 						"facility-report",
 						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Facility Reports By FacilityID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"facilityId\": {\r\n        \"Id\": 1,\r\n        \"houseId\": 5,\r\n        \"type\":\"bed\",\r\n        \"description\":\"test\",\r\n        \"quantity\":4\r\n    }, \r\n    \"employeeId\":\"test\",\r\n    \"title\":\"\",\r\n    \"description\":\"\",\r\n    \"createDate\":\"\",\r\n    \"status\":\"open\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/housing-service/facility-report/facility/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"housing-service",
+						"facility-report",
+						"facility",
+						"1"
 					]
 				}
 			},
@@ -258,6 +291,38 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/housing-service/facility-report/all",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"housing-service",
+						"facility-report",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Facility Report Details By Facility Report ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
 					"raw": "{\r\n    \"facilityId\": {\r\n        \"Id\": 1,\r\n        \"houseId\": 5,\r\n        \"type\":\"bed\",\r\n        \"description\":\"test\",\r\n        \"quantity\":4\r\n    }, \r\n    \"employeeId\":\"test\",\r\n    \"title\":\"\",\r\n    \"description\":\"\",\r\n    \"createDate\":\"\",\r\n    \"status\":\"open\"\r\n}",
 					"options": {
 						"raw": {
@@ -266,7 +331,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:9000/housing-service/facility-report-detail/all",
+					"raw": "localhost:9000/housing-service/facility-report-detail/report/1",
 					"host": [
 						"localhost"
 					],
@@ -274,7 +339,8 @@
 					"path": [
 						"housing-service",
 						"facility-report-detail",
-						"all"
+						"report",
+						"1"
 					]
 				}
 			},
@@ -287,7 +353,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"facilityReportId\": 1,\r\n    \"employeeId\":\"test\",\r\n    \"comment\":\"fixed\",\r\n    \"createDate\":\"\",\r\n    \"lastModificationDate\": \"\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -295,7 +361,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:9000/housing-service/facility-report-detail/1",
+					"raw": "localhost:9000/housing-service/facility-report-detail/3/helloworld",
 					"host": [
 						"localhost"
 					],
@@ -303,7 +369,8 @@
 					"path": [
 						"housing-service",
 						"facility-report-detail",
-						"1"
+						"3",
+						"helloworld"
 					]
 				}
 			},

@@ -11,4 +11,5 @@ public interface FacilityReportRepository {
 
     List<FacilityReport> getAllFacilityReports();
 
+    List<FacilityReport> getFacilityReportsByFacilityId(Integer facilityId);
 }

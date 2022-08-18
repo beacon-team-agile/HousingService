@@ -1,5 +1,6 @@
 package com.teamagile.housingservice.service;
 
+import com.teamagile.housingservice.entity.FacilityReport;
 import com.teamagile.housingservice.entity.FacilityReportDetail;
 import com.teamagile.housingservice.exception.FacilityReportDetailNotFoundException;
 import com.teamagile.housingservice.repository.implementations.FacilityReportDetailDaoImpl;
@@ -36,7 +37,12 @@ public class FacilityReportDetailService {
     }
 
     @Transactional
-    public FacilityReportDetail updateFacilityReportDetailInfo(Integer id, FacilityReportDetail facilityReportDetail) {
-        return facilityReportDetailDaoImpl.updateFacilityReportDetailInfo(id, facilityReportDetail);
+    public void updateFacilityReportDetailInfo(Integer Id, String comment) {
+        facilityReportDetailDaoImpl.updateFacilityReportDetailInfo(Id, comment);
+    }
+
+    @Transactional
+    public List<FacilityReportDetail> getFacilityReportDetailsByFacilityId(Integer facilityReportId) {
+        return facilityReportDetailDaoImpl.getFacilityReportDetailsByFacilityReportId(facilityReportId);
     }
 }

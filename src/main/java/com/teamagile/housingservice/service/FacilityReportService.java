@@ -34,4 +34,9 @@ public class FacilityReportService {
     public List<FacilityReport> getAllFacilityReports() {
         return facilityReportDaoImpl.getAllFacilityReports();
     }
+
+    @Transactional
+    public List<FacilityReport> getFacilityReportsByFacilityId(Integer facilityId) {
+        return facilityReportDaoImpl.getFacilityReportsByFacilityId(facilityId);
+    }
 }
