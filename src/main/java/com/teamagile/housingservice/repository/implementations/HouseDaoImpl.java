@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class HouseRepoImp extends AbstractHibernateDAO<House> implements HouseRepository {
-    public HouseRepoImp() {
+public class HouseDaoImpl extends AbstractHibernateDAO<House> implements HouseRepository {
+    public HouseDaoImpl() {
         setClazz(House.class);
     }
     @Override

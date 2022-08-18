@@ -11,5 +11,4 @@ import com.teamagile.housingservice.entity.House;
 public class HouseResponse {
     private ResponseStatus responseStatus;
     private House house;
-
 }

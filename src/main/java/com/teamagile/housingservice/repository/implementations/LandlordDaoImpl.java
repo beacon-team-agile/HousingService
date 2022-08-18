@@ -6,8 +6,8 @@ import com.teamagile.housingservice.repository.interfaces.LandlordRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LandlordRepoImp extends AbstractHibernateDAO<Landlord> implements LandlordRepository {
-    public LandlordRepoImp() {
+public class LandlordDaoImpl extends AbstractHibernateDAO<Landlord> implements LandlordRepository {
+    public LandlordDaoImpl() {
         setClazz(Landlord.class);
     }
     @Override
