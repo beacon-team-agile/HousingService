@@ -87,20 +87,25 @@ public class FacilityReportDetailController {
                 .build();
     }
 
-    @PatchMapping("/{facilityReportDetailId}")
-    public FacilityReportDetailResponse updateFacilityReportDetail(@PathVariable Integer facilityReportDetailId
-            , @RequestBody FacilityReportDetail request) {
-        FacilityReportDetail updated_facilityReportDetail = facilityReportDetailService
-                .updateFacilityReportDetailInfo(facilityReportDetailId, request);
-
-        return FacilityReportDetailResponse.builder()
+    @GetMapping("/report/{facilityReportId}")
+    public AllFacilityReportDetailsResponse getFacilityReportDetailsByFacilityReportId(@PathVariable Integer facilityReportId) {
+        List<FacilityReportDetail> facilityReportDetailList = facilityReportDetailService
+                .getFacilityReportDetailsByFacilityId(facilityReportId);
+        return AllFacilityReportDetailsResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
                                 .success(true)
-                                .message("Updated Facility Report Detail Successful")
+                                .message("Getting Facility Report Details From Facility Report ID!")
                                 .build()
                 )
-                .facilityReportDetail(updated_facilityReportDetail)
+                .facilityReportDetailList(facilityReportDetailList)
                 .build();
+    }
+
+
+    @PatchMapping("/{Id}/{comment}")
+    public void updateFacilityReportDetail(@PathVariable Integer Id, @PathVariable String comment) {
+        facilityReportDetailService.updateFacilityReportDetailInfo(Id, comment);
+
     }
 }
