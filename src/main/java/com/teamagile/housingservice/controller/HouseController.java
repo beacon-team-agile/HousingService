@@ -74,7 +74,7 @@ public class HouseController {
                         .message("House Found Successfully!")
                         .build())
                 .house(houseOptional.get())
-                .facilityList(facility.stream().toList())
+                .facilityList(facility)
                 .build();
     }
 
