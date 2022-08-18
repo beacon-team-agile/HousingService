@@ -80,11 +80,10 @@ public class FacilityReportController {
                         .build())
                 .facilityReport(facilityReportOptional.get())
                 .build();
-
     }
 
     @GetMapping("/all")
-    public AllFacilityReportsResponse getAllHouses() {
+    public AllFacilityReportsResponse getAllFacilityReports() {
         List<FacilityReport> facilityReportList = facilityReportService.getAllFacilityReports();
         return AllFacilityReportsResponse.builder()
                 .responseStatus(
