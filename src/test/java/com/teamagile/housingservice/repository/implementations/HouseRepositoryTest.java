@@ -1,7 +1,6 @@
 package com.teamagile.housingservice.repository.implementations;
 
 import com.teamagile.housingservice.entity.*;
-import com.teamagile.housingservice.repository.implementations.HouseRepoImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest
 public class HouseRepositoryTest {
     @Autowired
-    HouseRepoImp houseRepoImp;
+    HouseDaoImpl houseDaoImpl;
 
     House mockHouse;
     Landlord mockLandlord;
@@ -45,7 +43,7 @@ public class HouseRepositoryTest {
     @Test
     @Transactional
     public void testCreateHouse_successful() {
-        Integer id = houseRepoImp.createHouse(mockHouse);
+        Integer id = houseDaoImpl.createHouse(mockHouse);
         mockHouse.setId(id);
         assertEquals(1, id);
     }
@@ -53,7 +51,7 @@ public class HouseRepositoryTest {
     @Test
     @Transactional
     public void testCreateHouse_unsuccessful() {
-        Integer id = houseRepoImp.createHouse(mockHouse);
+        Integer id = houseDaoImpl.createHouse(mockHouse);
         mockHouse.setId(id);
         assertNotEquals(-1, id);
     }
@@ -62,32 +60,32 @@ public class HouseRepositoryTest {
     @Test
     @Transactional
     public void testGetHouseById_found() {
-        Integer id = houseRepoImp.createHouse(mockHouse);
+        Integer id = houseDaoImpl.createHouse(mockHouse);
         assertNotNull(id);
-        assertEquals(mockHouse, houseRepoImp.getHouseById(id));
+        assertEquals(mockHouse, houseDaoImpl.getHouseById(id));
     }
 
     @Test
     @Transactional
-    public void testGetHouseById_notfound() {assertNull(houseRepoImp.getHouseById(-1));}
+    public void testGetHouseById_notfound() {assertNull(houseDaoImpl.getHouseById(-1));}
 
 //    GET ALL
     @Test
     @Transactional
     public void testGetAllHouses_found() {
         List<Integer> houseList = new ArrayList<>();
-        Integer id1 = houseRepoImp.createHouse(mockHouse);
+        Integer id1 = houseDaoImpl.createHouse(mockHouse);
         houseList.add(id1);
-        assertEquals(houseList.size(), houseRepoImp.findAll().size());
+        assertEquals(houseList.size(), houseDaoImpl.findAll().size());
     }
 
 //    DELETE BY ID
     @Test
     @Transactional
     public void testDeleteHouseById_successful() {
-        Integer id = houseRepoImp.createHouse(mockHouse);
-        houseRepoImp.deleteHouse(id);
-        assertNull(houseRepoImp.getHouseById(id));
+        Integer id = houseDaoImpl.createHouse(mockHouse);
+        houseDaoImpl.deleteHouse(id);
+        assertNull(houseDaoImpl.getHouseById(id));
     }
 
 }
