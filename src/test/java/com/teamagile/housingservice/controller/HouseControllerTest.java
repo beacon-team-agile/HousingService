@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
 import com.teamagile.housingservice.entity.*;
+import com.teamagile.housingservice.service.FacilityService;
 import com.teamagile.housingservice.service.HouseService;
 import com.teamagile.housingservice.service.LandlordService;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,8 @@ public class HouseControllerTest {
     @MockBean
     HouseService houseService;
 
+    @MockBean
+    FacilityService facilityService;
     @MockBean
     LandlordService landlordService;
     House mockHouse;
