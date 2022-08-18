@@ -1,6 +1,7 @@
 package com.teamagile.housingservice.controller;
 
 import com.teamagile.housingservice.domain.common.ResponseStatus;
+import com.teamagile.housingservice.domain.requests.FacilityReportRequest;
 import com.teamagile.housingservice.domain.response.AllFacilityReportsResponse;
 import com.teamagile.housingservice.domain.response.FacilityReportResponse;
 import com.teamagile.housingservice.entity.FacilityReport;
@@ -13,6 +14,7 @@ import com.teamagile.housingservice.service.FacilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,18 +40,15 @@ public class FacilityReportController {
         this.facilityReportDetailService = facilityReportDetailService;
     }
 
-    @PostMapping("/{facilityId}")
-    public FacilityReportResponse addFacilityReport(@RequestBody FacilityReport request
-            , @PathVariable Integer facilityId) throws FacilityNotFoundException {
-
-        List<FacilityReportDetail> facilityReportDetailList = request.getFacilityReportDetailList();
+    @PostMapping("/add_report")
+    public FacilityReportResponse addFacilityReport(@RequestBody FacilityReportRequest request) throws FacilityNotFoundException {
 
         FacilityReport facilityReport = FacilityReport.builder()
-                .facilityId(facilityService.getFacilityById(facilityId))
+                .facilityId(facilityService.getFacilityById(request.getFacilityId()))
                 .employeeId(request.getEmployeeId())
                 .title(request.getTitle())
                 .description(request.getDescription())
-                .createDate(request.getCreateDate())
+                .createDate(Calendar.getInstance().getTime())
                 .status(request.getStatus())
                 .build();
 
