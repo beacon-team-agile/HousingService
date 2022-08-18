@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +23,10 @@ public class FacilityService {
     public Facility getFacilityById(int id) throws FacilityNotFoundException {
         return Optional.ofNullable(facilityDaoImpl.getFacilityById(id))
                 .orElseThrow(() -> new FacilityNotFoundException("Facility Not Found!"));
+    }
+
+    @Transactional
+    public List<Facility> getFacilityByHouseId(Integer houseId) {
+        return facilityDaoImpl.getFacilityByHouseId(houseId);
     }
 }

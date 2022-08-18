@@ -1,6 +1,8 @@
 package com.teamagile.housingservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +29,6 @@ public class FacilityReport implements Serializable {
     private Facility facilityId;
     @Column(name = "employee_id")
     private String employeeId;
-    
 
     @Column(name = "title")
     private String title;
@@ -55,5 +56,20 @@ public class FacilityReport implements Serializable {
                 ", status='" + status + '\'' +
                 ", facilityReportDetailList=" + facilityReportDetailList +
                 '}';
+    }
+
+    @JsonCreator
+    public FacilityReport(@JsonProperty("facilityReportId") Integer Id,
+                        @JsonProperty("employeeId") String employeeId,
+                        @JsonProperty("title") String title,
+                        @JsonProperty("description") String description,
+                        @JsonProperty("createDate") Date createDate,
+                        @JsonProperty("status") String status){
+        this.Id = Id;
+        this.employeeId= employeeId;
+        this.title = title;
+        this.description = description;
+        this.createDate = createDate;
+        this.status = status;
     }
 }

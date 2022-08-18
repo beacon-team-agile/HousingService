@@ -3,9 +3,11 @@ package com.teamagile.housingservice.controller;
 import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
+import com.teamagile.housingservice.entity.Facility;
 import com.teamagile.housingservice.entity.House;
 import com.teamagile.housingservice.exception.HouseNotFoundException;
 import com.teamagile.housingservice.exception.LandlordNotFoundException;
+import com.teamagile.housingservice.service.FacilityService;
 import com.teamagile.housingservice.service.HouseService;
 import com.teamagile.housingservice.service.LandlordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class HouseController {
 
     private LandlordService landlordService;
 
+    private FacilityService facilityService;
+
     @Autowired
     public void HouseService(HouseService houseService){
         this.houseService = houseService;
@@ -29,7 +33,10 @@ public class HouseController {
     public void LandlordService(LandlordService landlordService){
         this.landlordService = landlordService;
     }
-
+    @Autowired
+    public void FacilityService(FacilityService facilityService){
+        this.facilityService = facilityService;
+    }
 
     @PostMapping("/{landlordId}")
     public HouseResponse createHouse(@RequestBody House request, @PathVariable Integer landlordId) throws LandlordNotFoundException {
@@ -51,6 +58,7 @@ public class HouseController {
     @GetMapping("/{houseId}")
     public HouseResponse getHouseById(@PathVariable Integer houseId) throws HouseNotFoundException {
         Optional<House> houseOptional = Optional.ofNullable(houseService.getHouseById(houseId));
+        List<Facility> facility = facilityService.getFacilityByHouseId(houseId);
         if (!houseOptional.isPresent()) {
             return HouseResponse.builder()
                     .responseStatus(ResponseStatus.builder()
@@ -66,6 +74,7 @@ public class HouseController {
                         .message("House Found Successfully!")
                         .build())
                 .house(houseOptional.get())
+                .facilityList(facility)
                 .build();
     }
 
