@@ -1,8 +1,11 @@
 package com.teamagile.housingservice.entity;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Facility {
+public class Facility implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -43,5 +46,18 @@ public class Facility {
                 ", house=" + houseId +
                 ", facilityReportList=" + facilityReportList +
                 '}';
+    }
+
+    @JsonCreator
+    public Facility(@JsonProperty("facilityId") Integer Id,
+                    @JsonProperty("houseId") House houseId,
+                    @JsonProperty("type") String type,
+                    @JsonProperty("description") String description,
+                    @JsonProperty("quantity") Integer quantity){
+        this.Id = Id;
+        this.houseId = houseId;
+        this.type = type;
+        this.description = description;
+        this.quantity = quantity;
     }
 }

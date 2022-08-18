@@ -5,6 +5,7 @@ import com.teamagile.housingservice.domain.response.AllHousesResponse;
 import com.teamagile.housingservice.domain.response.HouseResponse;
 import com.teamagile.housingservice.entity.House;
 import com.teamagile.housingservice.exception.HouseNotFoundException;
+import com.teamagile.housingservice.exception.LandlordNotFoundException;
 import com.teamagile.housingservice.service.HouseService;
 import com.teamagile.housingservice.service.LandlordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class HouseController {
 
 
     @PostMapping("/{landlordId}")
-    public HouseResponse createHouse(@RequestBody House request, @PathVariable Integer landlordId) throws HouseNotFoundException {
+    public HouseResponse createHouse(@RequestBody House request, @PathVariable Integer landlordId) throws LandlordNotFoundException {
 
         House house = House.builder()
                 .landlordId(landlordService.getLandlordById(landlordId))

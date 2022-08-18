@@ -2,7 +2,7 @@ package com.teamagile.housingservice.service;
 
 import com.teamagile.housingservice.entity.*;
 import com.teamagile.housingservice.exception.HouseNotFoundException;
-import com.teamagile.housingservice.repository.implementations.HouseRepoImp;
+import com.teamagile.housingservice.repository.implementations.HouseDaoImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ public class HouseServiceTest {
     HouseService houseService;
 
     @Mock
-    HouseRepoImp houseRepoImp;
+    HouseDaoImpl houseDaoImpl;
 
     House mockHouse;
     Landlord mockLandlord;
@@ -47,7 +47,7 @@ public class HouseServiceTest {
 //    CREATE
     @Test
     public void testCreateHouse_successful() {
-        when(houseRepoImp.createHouse(mockHouse)).thenReturn(1);
+        when(houseDaoImpl.createHouse(mockHouse)).thenReturn(1);
         assertEquals(1, houseService.createHouse(mockHouse));
     }
 
@@ -55,14 +55,14 @@ public class HouseServiceTest {
 //    GET HOUSE BY ID
     @Test
     public void testGetHouseById_successful() throws Exception {
-        when(houseRepoImp.getHouseById(1)).thenReturn(mockHouse);
+        when(houseDaoImpl.getHouseById(1)).thenReturn(mockHouse);
         House house = houseService.getHouseById(1);
         assertEquals(mockHouse, house);
     }
 
     @Test
     public void testGetHouseById_unsuccessfulWhenNegativeId() {
-        when(houseRepoImp.getHouseById(-1)).thenReturn(null);
+        when(houseDaoImpl.getHouseById(-1)).thenReturn(null);
         assertThrows(HouseNotFoundException.class, () -> houseService.getHouseById(-1));
     }
 
@@ -71,7 +71,7 @@ public class HouseServiceTest {
     public void testGetAllHouses_successful() {
         List<House> houseList = new ArrayList();
         houseList.add(mockHouse);
-        when(houseRepoImp.getAllHouses()).thenReturn(houseList);
+        when(houseDaoImpl.getAllHouses()).thenReturn(houseList);
         List<House> expected = houseService.getAllHouses();
         assertEquals(expected, houseList);
     }
@@ -81,6 +81,6 @@ public class HouseServiceTest {
     @Test
     public void testDeleteHouse_successful() {
         houseService.deleteHouse(1);
-        verify(houseRepoImp).deleteHouse(1);
+        verify(houseDaoImpl).deleteHouse(1);
     }
 }

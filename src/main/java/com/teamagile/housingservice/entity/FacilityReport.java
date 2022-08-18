@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FacilityReport {
+public class FacilityReport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,6 +27,9 @@ public class FacilityReport {
     private Facility facilityId;
     @Column(name = "employee_id")
     private String employeeId;
+    
+
+    @Column(name = "title")
     private String title;
 
     @Column(name = "`description`")
