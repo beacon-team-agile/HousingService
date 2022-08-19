@@ -81,7 +81,7 @@ public class HouseControllerTest {
 
         HouseResponse houseResponse = new Gson().fromJson(result.getResponse().getContentAsString(), HouseResponse.class);
 
-        assertTrue(houseResponse.getResponseStatus().getSuccess());
+        assertTrue(houseResponse.getResponseStatus().getIs_success());
     }
 
     @Test
@@ -92,7 +92,7 @@ public class HouseControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         HouseResponse house = new Gson().fromJson(result.getResponse().getContentAsString(), HouseResponse.class);
-        assertEquals(house.getResponseStatus().getSuccess(), true);
+        assertEquals(house.getResponseStatus().getIs_success(), true);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class HouseControllerTest {
                         .andExpect(status().isOk())
                         .andReturn();
         HouseResponse house = new Gson().fromJson(result.getResponse().getContentAsString(), HouseResponse.class);
-        assertEquals(house.getResponseStatus().getSuccess(), false);
+        assertEquals(house.getResponseStatus().getIs_success(), false);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class HouseControllerTest {
                         .andReturn();
 
         AllHousesResponse response = new Gson().fromJson(result.getResponse().getContentAsString(), AllHousesResponse.class);
-        assertEquals(response.getResponseStatus().getSuccess(), true);
+        assertEquals(response.getResponseStatus().getIs_success(), true);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.teamagile.housingservice.controller;
 
+import com.teamagile.housingservice.domain.FacilityReportAbstract;
 import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.requests.FacilityReportRequest;
 import com.teamagile.housingservice.domain.response.AllFacilityReportsResponse;
 import com.teamagile.housingservice.domain.response.FacilityReportResponse;
+import com.teamagile.housingservice.domain.response.SingleFacilityReportResponse;
 import com.teamagile.housingservice.entity.FacilityReport;
 import com.teamagile.housingservice.entity.FacilityReportDetail;
 import com.teamagile.housingservice.exception.FacilityNotFoundException;
@@ -41,7 +43,7 @@ public class FacilityReportController {
     }
 
     @PostMapping("/add_report")
-    public FacilityReportResponse addFacilityReport(@RequestBody FacilityReportRequest request) throws FacilityNotFoundException {
+    public SingleFacilityReportResponse addFacilityReport(@RequestBody FacilityReportRequest request) throws FacilityNotFoundException {
 
         FacilityReport facilityReport = FacilityReport.builder()
                 .facilityId(facilityService.getFacilityById(request.getFacilityId()))
@@ -54,9 +56,16 @@ public class FacilityReportController {
 
         facilityReportService.addFacilityReport(facilityReport);
 
-        return FacilityReportResponse.builder()
-                .responseStatus(ResponseStatus.builder().success(true).message("Facility Report Created!").build())
-                .facilityReport(facilityReport)
+        return SingleFacilityReportResponse.builder()
+                .responseStatus(ResponseStatus.builder().is_success(true).message("Facility Report Created!").build())
+                .facilityReport(FacilityReportAbstract.builder()
+                		.id(facilityReport.getId())
+                		.facilityId(facilityReport.getFacilityId().getId())
+                		.employeeId(facilityReport.getEmployeeId())
+                		.title(facilityReport.getTitle())
+                		.status(facilityReport.getStatus())
+                		.createDate(facilityReport.getCreateDate())
+                		.description(facilityReport.getDescription()).build())
                 .build();
     }
 
@@ -66,7 +75,7 @@ public class FacilityReportController {
         if (!facilityReportOptional.isPresent()) {
             return FacilityReportResponse.builder()
                     .responseStatus(ResponseStatus.builder()
-                            .success(false)
+                            .is_success(false)
                             .message("Facility Report Not Found!")
                             .build())
                     .facilityReport(null)
@@ -74,7 +83,7 @@ public class FacilityReportController {
         }
         return FacilityReportResponse.builder()
                 .responseStatus(ResponseStatus.builder()
-                        .success(true)
+                        .is_success(true)
                         .message("Facility Report Found Successfully!")
                         .build())
                 .facilityReport(facilityReportOptional.get())
@@ -87,7 +96,7 @@ public class FacilityReportController {
         return AllFacilityReportsResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
-                                .success(true)
+                                .is_success(true)
                                 .message("Getting All Facility Reports!")
                                 .build()
                 )

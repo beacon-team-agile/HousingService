@@ -50,7 +50,7 @@ public class HouseController {
         houseService.createHouse(house);
 
         return HouseResponse.builder()
-                .responseStatus(ResponseStatus.builder().success(true).message("House Created!").build())
+                .responseStatus(ResponseStatus.builder().is_success(true).message("House Created!").build())
                 .house(house)
                 .build();
     }
@@ -62,7 +62,7 @@ public class HouseController {
         if (!houseOptional.isPresent()) {
             return HouseResponse.builder()
                     .responseStatus(ResponseStatus.builder()
-                            .success(false)
+                            .is_success(false)
                             .message("House Not Found!")
                             .build())
                     .house(null)
@@ -70,7 +70,7 @@ public class HouseController {
         }
         return HouseResponse.builder()
                 .responseStatus(ResponseStatus.builder()
-                        .success(true)
+                        .is_success(true)
                         .message("House Found Successfully!")
                         .build())
                 .house(houseOptional.get())
@@ -84,7 +84,7 @@ public class HouseController {
         return AllHousesResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
-                                .success(true)
+                                .is_success(true)
                                 .message("Getting All Houses!")
                                 .build()
                 )
@@ -100,7 +100,7 @@ public class HouseController {
             return HouseResponse.builder()
                     .responseStatus(
                             ResponseStatus.builder()
-                                    .success(true)
+                                    .is_success(true)
                                     .message("House Deleted!")
                                     .build()
                     )
