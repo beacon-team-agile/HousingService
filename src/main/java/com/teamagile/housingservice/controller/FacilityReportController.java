@@ -110,7 +110,7 @@ public class FacilityReportController {
         return AllFacilityReportsResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
-                                .success(true)
+                                .is_success(true)
                                 .message("Getting Facility Reports From Facility!")
                                 .build()
                 )

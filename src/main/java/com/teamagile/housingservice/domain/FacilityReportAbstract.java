@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class FacilityReportAbstract implements Serializable{
+    @Id
     private Integer id;
     private Integer facilityId;
     private String employeeId;

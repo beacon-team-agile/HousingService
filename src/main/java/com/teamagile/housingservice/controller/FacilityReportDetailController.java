@@ -46,7 +46,7 @@ public class FacilityReportDetailController {
         facilityReportDetailService.addFacilityReportDetail(facilityReportDetail);
 
         return FacilityReportDetailResponse.builder()
-                .responseStatus(ResponseStatus.builder().success(true).message("Facility Report Detail Created!").build())
+                .responseStatus(ResponseStatus.builder().is_success(true).message("Facility Report Detail Created!").build())
                 .facilityReportDetail(facilityReportDetail)
                 .build();
     }
@@ -58,7 +58,7 @@ public class FacilityReportDetailController {
         if (!facilityReportDetailOptional.isPresent()) {
             return FacilityReportDetailResponse.builder()
                     .responseStatus(ResponseStatus.builder()
-                            .success(false)
+                            .is_success(false)
                             .message("Facility Report Detail Not Found!")
                             .build())
                     .facilityReportDetail(null)
@@ -66,7 +66,7 @@ public class FacilityReportDetailController {
         }
         return FacilityReportDetailResponse.builder()
                 .responseStatus(ResponseStatus.builder()
-                        .success(true)
+                        .is_success(true)
                         .message("Facility Report Detail Found Successfully!")
                         .build())
                 .facilityReportDetail(facilityReportDetailOptional.get())
@@ -79,7 +79,7 @@ public class FacilityReportDetailController {
         return AllFacilityReportDetailsResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
-                                .success(true)
+                                .is_success(true)
                                 .message("Getting All Facility Report Details!")
                                 .build()
                 )
@@ -94,7 +94,7 @@ public class FacilityReportDetailController {
         return AllFacilityReportDetailsResponse.builder()
                 .responseStatus(
                         ResponseStatus.builder()
-                                .success(true)
+                                .is_success(true)
                                 .message("Getting Facility Report Details From Facility Report ID!")
                                 .build()
                 )
