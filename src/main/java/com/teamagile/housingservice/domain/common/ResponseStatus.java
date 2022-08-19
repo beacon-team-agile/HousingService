@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseStatus {
-    private Boolean success;
+    private Boolean is_success;
     private String message;
 }
