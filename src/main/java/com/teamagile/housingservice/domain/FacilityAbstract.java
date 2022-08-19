@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class FacilityAbstract implements Serializable {
-
-    private Integer Id;
-    
+	
+	private Integer id;
+  
     private Integer houseId;
 
     private String type;
