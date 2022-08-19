@@ -29,10 +29,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class FacilityReportDetailAbstract implements Serializable{
-
-    private Integer Id;
+    @Id
+    private Integer id;
     private Integer facilityReportId;
-
     private String employeeId;
     private String comment;
     private Date createDate;

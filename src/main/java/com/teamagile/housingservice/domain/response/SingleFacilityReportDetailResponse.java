@@ -2,18 +2,16 @@ package com.teamagile.housingservice.domain.response;
 
 import com.teamagile.housingservice.domain.FacilityReportDetailAbstract;
 import com.teamagile.housingservice.domain.common.ResponseStatus;
-import com.teamagile.housingservice.entity.FacilityReportDetail;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Optional;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Builder
-public class FacilityReportDetailResponse {
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class SingleFacilityReportDetailResponse implements Serializable {
     private ResponseStatus responseStatus;
-    private FacilityReportDetail facilityReportDetail;
+    private FacilityReportDetailAbstract facilityReportDetail;
 }

@@ -1,9 +1,11 @@
 package com.teamagile.housingservice.controller;
 
+import com.teamagile.housingservice.domain.FacilityReportDetailAbstract;
 import com.teamagile.housingservice.domain.common.ResponseStatus;
 import com.teamagile.housingservice.domain.requests.FacilityReportDetailRequest;
 import com.teamagile.housingservice.domain.response.AllFacilityReportDetailsResponse;
 import com.teamagile.housingservice.domain.response.FacilityReportDetailResponse;
+import com.teamagile.housingservice.domain.response.SingleFacilityReportDetailResponse;
 import com.teamagile.housingservice.entity.FacilityReportDetail;
 import com.teamagile.housingservice.exception.FacilityReportDetailNotFoundException;
 import com.teamagile.housingservice.exception.FacilityReportNotFoundException;
@@ -33,7 +35,7 @@ public class FacilityReportDetailController {
     }
 
     @PostMapping("/add")
-    public FacilityReportDetailResponse addFacilityReportDetail(@RequestBody FacilityReportDetailRequest request)
+    public SingleFacilityReportDetailResponse addFacilityReportDetail(@RequestBody FacilityReportDetailRequest request)
             throws FacilityReportNotFoundException {
         FacilityReportDetail facilityReportDetail = FacilityReportDetail.builder()
                 .facilityReportId(facilityReportService.getFacilityReportById(request.getFacilityReportId()))
@@ -45,9 +47,16 @@ public class FacilityReportDetailController {
 
         facilityReportDetailService.addFacilityReportDetail(facilityReportDetail);
 
-        return FacilityReportDetailResponse.builder()
+        return SingleFacilityReportDetailResponse.builder()
                 .responseStatus(ResponseStatus.builder().is_success(true).message("Facility Report Detail Created!").build())
-                .facilityReportDetail(facilityReportDetail)
+                .facilityReportDetail(FacilityReportDetailAbstract.builder()
+                        .id(facilityReportDetail.getId())
+                        .facilityReportId(facilityReportDetail.getFacilityReportId().getId())
+                        .employeeId(facilityReportDetail.getEmployeeId())
+                        .comment(facilityReportDetail.getComment())
+                        .createDate(facilityReportDetail.getCreateDate())
+                        .lastModificationDate(facilityReportDetail.getLastModificationDate())
+                        .build())
                 .build();
     }
 
