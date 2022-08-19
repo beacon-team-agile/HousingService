@@ -32,8 +32,7 @@ public class House implements Serializable {
     @Column(name = "max_occupant")
     private Integer maxOccupant;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "houseId")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "houseId")
     private List<Facility> facilityList = new ArrayList<>();
 
 

@@ -53,7 +53,7 @@ public class HouseController {
                 .build();
     }
 
-    @GetMapping("/{houseId}")
+    @GetMapping("/get_house/{houseId}")
     public SingleHouseResponse getHouseById(@PathVariable Integer houseId) throws HouseNotFoundException {
         Optional<House> houseOptional = Optional.ofNullable(houseService.getHouseById(houseId));
         if (!houseOptional.isPresent()) {
