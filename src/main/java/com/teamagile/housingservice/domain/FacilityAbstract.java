@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class FacilityAbstract implements Serializable {
-
-    private Integer Id;
-    
+	@Id
+	private Integer id;
+  
     private Integer houseId;
 
     private String type;
